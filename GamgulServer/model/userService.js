@@ -1,9 +1,10 @@
 const data = require('./Schema/userSchema');
-
+const bcrypt = require('bcrypt')
 const create= async (user)=>{
+    const pw = bcrypt.hashSync(user.password,10);
     const Schema = new data({
         email : user.email,
-        password : user.password,
+        password : pw,
         username : user.username,
         accountname : user.accountname,
         intro : user.intro,
@@ -11,5 +12,11 @@ const create= async (user)=>{
     })
     return Schema.save();
 }
-
-module.exports = {create};
+const find = async ()=> {
+    return data.find(()=>{
+        return {
+            username: this.username
+        }
+    })
+}
+module.exports = {create, find};
