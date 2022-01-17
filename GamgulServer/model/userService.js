@@ -12,11 +12,7 @@ const create= async (user)=>{
     })
     return Schema.save();
 }
-const find = async ()=> {
-    return data.find(()=>{
-        return {
-            username: this.username
-        }
-    })
+const find = async (user)=> {
+    
 }
 module.exports = {create, find};

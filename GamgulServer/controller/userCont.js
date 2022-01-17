@@ -8,11 +8,26 @@ const sign = async (req, res, next)=> {
     }
     try{
         const data = await service.create(user);
-        console.log(await service.find());
-        res.status(200).json(data);
+        const resdata = {
+            _id : data._id,
+            username : data.username,
+            acoountname : data.accountname,
+            email : data.email,
+            intro : data.intro,
+            image : data.image,
+            hearts : data.hearts,
+            following : data.following,
+            follower : data.follower,
+            followCount : data.followCount
+        }
+        res.status(200).json(resdata);
     } catch(error) {
         res.status(400).json({"message": error.message})
     }
 }
 
-module.exports = {sign}
+const login = async (req, res) => {
+
+}
+
+module.exports = {sign, login};
