@@ -12,7 +12,7 @@ const create= async (user)=>{
     })
     return Schema.save();
 }
-const find = async (user)=> {
-    
-}
-module.exports = {create, find};
+// const login = async (user)=> {
+//     const Schema = data.find({email:user.email,password:user.password})
+// }
+module.exports = {create, login};

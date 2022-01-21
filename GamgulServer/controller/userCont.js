@@ -27,7 +27,8 @@ const sign = async (req, res, next)=> {
 }
 
 const login = async (req, res) => {
-
+    const user = req.body;
+    const data = await service.login(user)
 }
 
 module.exports = {sign, login};

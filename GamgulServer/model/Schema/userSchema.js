@@ -86,11 +86,11 @@ schema.post('save', function(error, doc, next) {
 //         username : this.username
 //     }
 // }
-schema.method.toAuthJson = ()=> {
-    return {
-        username : this.username
-    }
-}
+// schema.method.toAuthJson = ()=> {
+//     return {
+//         username : this.username
+//     }
+// }
 // schema.methods = ()=> {
 //     return {
 //         username : this.username
