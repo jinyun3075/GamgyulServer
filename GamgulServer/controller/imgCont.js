@@ -17,7 +17,7 @@ const imageOne = (req, res) => {
         res.status(error.status).json({ "message" : "upload fail" });
     }
 }
-const imageMany = async (req, res) => {
+const imageMany =  (req, res) => {
     if(req.files.length!=0){
         const img = req.files;
         res.status(200).json(img);

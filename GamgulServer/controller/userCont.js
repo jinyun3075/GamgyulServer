@@ -27,8 +27,21 @@ const sign = async (req, res, next)=> {
 }
 
 const login = async (req, res) => {
-    const user = req.body;
-    const data = await service.login(user)
+    const user = req.body.user;
+    try {
+        if(!user.email && !user.password) {
+            throw new Error("이메일 또는 비밀번호를 입력해주세요.")
+        }else if(!user.email) {
+            throw new Error("이메일을 입력해주세요.")
+        }else if(!user.password) {
+            throw new Error("비밀번호를 입력해주세요.")
+        }
+        const data = await service.login(user)
+        res.status(200).json(data);
+    } catch(error) {
+        res.status(400).json({"message": error.message})
+    }
+
 }
 
 module.exports = {sign, login};
