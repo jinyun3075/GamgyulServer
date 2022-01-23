@@ -1,5 +1,5 @@
 const service = require('../model/userService')
-
+const bcrypt = require('bcrypt');
 const sign = async (req, res, next)=> {
     const { user } = req.body;
     if(user.password.length<6){
@@ -37,7 +37,18 @@ const login = async (req, res) => {
             throw new Error("비밀번호를 입력해주세요.")
         }
         const data = await service.login(user)
-        res.status(200).json(data);
+        const token = bcrypt.hashSync("삼겹살",10);
+        const sendData = {
+            user: {
+                "_id" : data._id,
+                "username" : data.username,
+                "email" : data.email,
+                "accountname" : data.accountname,
+                "image" : data.image,
+                "token" : token,
+            }
+        }
+        res.status(200).json(sendData);
     } catch(error) {
         res.status(400).json({"message": error.message})
     }
