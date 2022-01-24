@@ -1,5 +1,7 @@
 const service = require('../model/userService')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 const sign = async (req, res, next)=> {
     const { user } = req.body;
     if(user.password.length<6){
@@ -37,7 +39,7 @@ const login = async (req, res) => {
             throw new Error("비밀번호를 입력해주세요.")
         }
         const data = await service.login(user)
-        const token = bcrypt.hashSync("삼겹살",10);
+        const token = bcrypt.hashSync(process.env.TOKEN,10);
         const sendData = {
             user: {
                 "_id" : data._id,
@@ -48,6 +50,17 @@ const login = async (req, res) => {
                 "token" : token,
             }
         }
+        const token2 = jwt.sign({
+            _id: data._id,
+            username: data.accountname,
+        },process.env.TOKEN2,
+        {
+            expiresIn: "3d",
+        });
+        res.cookie("access_token",token2,{
+            maxAge: 1000 * 60 * 60 * 24 * 3,
+            httpOnly: true
+        });
         res.status(200).json(sendData);
     } catch(error) {
         res.status(400).json({"message": error.message})
