@@ -6,6 +6,8 @@
 - mongoose
 - multer
 - body-parser
+- bcrypt
+- jsonwebtoken
 
 ## 유저
 ### 회원가입
@@ -13,24 +15,24 @@
     - /user (post)
 
 - req
-    - Email (고유, 필수)
-    - Password (필수)
-    - UserName (필수)
-    - accountname (?)
-    - intro (소개)
-    - image (default)
+    - "user": {
+        "username": String,
+        "email": String,
+        "password": String,
+        "accountname": String,
+        "intro": String,
+        "image": String
+    }
     
 - res
-    - "_id" : string
-    - "username" : String
-    - "acoountname : string
-    - "email" : string 
-    - "intro" : string
-    - "image" : string
-    - "hearts" : array (?)
-    - "following" : array (?)
-    - "follower" : array (?)
-    - "followCount" : 0
+    - "user": {
+        "_id": String,
+        "username": String,
+        "email": String,
+        "accountname": String,
+        "intro": String,
+        "image": String,
+    }
   
 - fail
     - email, password, accountname, username 중 하나라도 작성하지 않을 경우 필수 입력사항을 입력해주세요. 
@@ -39,6 +41,42 @@
     - 가입된 email일 경우 이미 가입된 이메일 주소입니다. 
     - accountname에 지정된 문자 이외의 문자가 들어갈 경우 영문, 숫자, 밑줄, 마침표만 사용할 수 있습니다. 
     - 가입된 accountname일 경우 이미 사용중인 계정 ID입니다.
+
+### 로그인
+- api 
+    - /user/login (post)
+- req
+    - "user":{
+        "email": String,
+        "password": String
+    }
+- res
+    - "user": {
+        "_id": String,
+        "username": String,
+        "email": String,
+        "accountname": String,
+        "image": String,
+        "token": String
+    }
+- fail
+    - 이메일 또는 비밀번호를 입력하지 않을때
+### 전체 유저
+- api
+    - /user (get)
+- res
+    - "user": {
+        "_id": String,
+        "email": String,
+        "hearts": [],
+        "following": [],
+        "follower": [],
+        "password": String,
+        "username": String,
+        "accountname": String,
+        "intro": String,
+        "image": String
+    }
 ## 이미지
 ### 한개의 이미지
 - api
@@ -48,7 +86,7 @@
     - value: 이미지 파일
  
 - res
-    - "fieldname": "String",
+    - "fieldname": String,
 	- "originalname": String,
 	- "encoding": String,
 	- "mimetype": String,
@@ -63,7 +101,7 @@
 ### 여러개의 이미지
 - api
     - /image/uploadfiles (post)
-### 이미지 보고
+### 이미지 자세히 보기
 - api
     - /filename.이미지 확장자
 - res
@@ -71,4 +109,55 @@
 - faile
     - status 404
 
-### ~ing
+## 프로필
+### 프로필 수정
+- api
+    - /user (put)
+- req
+    - user:{
+        username: String,
+        accountname: String,
+        intro: String,
+        image: String
+    }
+
+- headers
+    - "Authorization" : “Bearer key”
+	- "Content-type" : application/json
+
+- res
+    - "user": {
+        "_id": String,
+        "username": String,
+        "accountname": String,
+        "intro": String,
+        "image": String,
+        "following": [],
+        "follower": [],
+        "followerCount": Number,
+        "followingCount": Number
+    }
+### 개인 프로필
+- api
+    - /profile/:accountname (get)
+
+- headers
+    - "Authorization" : “Bearer key”
+	- "Content-type" : application/json
+
+- res
+    - "profile": {
+        "_id": String,
+        "username": String,
+        "accountname": String,
+        "intro": String,
+        "image": String,
+        "isfollow": Boolean,
+        "following": [],
+        "follower": [],
+        "followerCount": Number,
+        "followingCount": Number
+    }
+
+- fail
+    - 해당 계정이 존재하지 않습니다.
