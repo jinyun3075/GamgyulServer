@@ -3,6 +3,8 @@ const controller = require('../controller/userCont');
 const router = express.Router();
 const auth = require('../midd/Auth');
 
+router.get('/',controller.alluser)
 router.post('/',controller.sign)
 router.post('/login', controller.login)
+router.put('/',auth ,controller.updateuser)
 module.exports = router;

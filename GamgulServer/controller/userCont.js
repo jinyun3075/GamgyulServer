@@ -51,8 +51,7 @@ const login = async (req, res) => {
             }
         }
         const token2 = jwt.sign({
-            _id: data._id,
-            username: data.accountname,
+            _id: data._id
         },process.env.TOKEN2,
         {
             expiresIn: "3d",
@@ -65,7 +64,30 @@ const login = async (req, res) => {
     } catch(error) {
         res.status(400).json({"message": error.message})
     }
-
 }
 
-module.exports = {sign, login};
+const alluser = async (req,res) => {
+    const user = await service.alluser();
+    res.status(200).json(user);
+}
+
+const updateuser = async (req,res) => {
+    const { infouser, user} = req.body;
+    try {
+        const data = await service.updateuser(infouser, user);
+        const json = data.toJSON();
+        delete json.password;
+        delete json.email;
+        delete json.pubDate;
+        delete json.modDate;
+        res.status(200).json(json);
+    } catch(error) {
+        res.status(400).json({"message" : "이미 사용중이 계정 ID입니다."})
+    }
+}
+
+const oneuser = async (req,res) => {
+    const { accountname } = req.params;
+    const data = await service.oneuser(accountname);
+}
+module.exports = {sign, login, alluser, updateuser};

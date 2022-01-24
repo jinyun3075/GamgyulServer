@@ -61,7 +61,7 @@ const schema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    modData : {
+    modDate : {
         type: Date,
         default: Date.now
     }

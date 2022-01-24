@@ -24,4 +24,22 @@ const login = async (user)=> {
 
     return dbuser;
 }
-module.exports = {create, login};
+
+const alluser = () => {
+    return data.find();
+}
+
+const updateuser = (infouser, user) => {
+    const id = infouser.user.id;
+    return data.findByIdAndUpdate(id,
+        {
+            username : user.username,
+            accountname : user.accountname,
+            intro : user.intro,
+            image : user.image
+        },
+        {new : true}
+        );
+}
+
+module.exports = {create, login, alluser, updateuser};
