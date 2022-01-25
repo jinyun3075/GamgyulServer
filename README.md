@@ -200,6 +200,41 @@
         "followerCount": 0,
         "followingCount": 1
     }
-
-
+- fail
+    - 해당 계정이 존재하지 않습니다.
+### 언팔로우
+- api
+    - /profile/:accountname/unfollow (delete)
+- headers
+    - "Authorization" : “Bearer key”
+	- "Content-type" : application/json
+- res
+    - follow 한 사용자의 프로필
+    - "profile": {
+        "_id": String,
+        "username": String,
+        "accountname": String,
+        "intro": String,
+        "image": String,
+				"isfollow": Boolean,
+        "following": [],
+        "follower": [],
+        "followerCount": 0,
+        "followingCount": 0
+    }
     
+    - 접속한 사용자의 프로필
+    - "profile": {
+        "_id": String,
+        "username": String,
+        "accountname": String,
+        "intro": String,
+        "image": String,
+				"isfollow": Boolean,
+        "following": [],
+        "follower": [],
+        "followerCount": 0,
+        "followingCount": 0
+    }
+- fail
+    - 해당 계정이 존재하지 않습니다.
