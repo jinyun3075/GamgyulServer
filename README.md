@@ -161,3 +161,45 @@
 
 - fail
     - 해당 계정이 존재하지 않습니다.
+
+### 팔로우
+- api
+    - /profile/:accountname/follow (post)
+- headers
+    - "Authorization" : “Bearer key”
+	- "Content-type" : application/json
+- res
+    - follow 한 사용자의 프로필
+    - "profile": {
+        "_id": String,
+        "username": String,
+        "accountname": String,
+        "intro": String,
+        "image": String,
+				"isfollow": Boolean,
+        "following": [],
+        "follower": [
+            "접속한 사용자의 id"
+        ],
+        "followerCount": 1,
+        "followingCount": 0
+    }
+    
+    - 접속한 사용자의 프로필
+    - "profile": {
+        "_id": String,
+        "username": String,
+        "accountname": String,
+        "intro": String,
+        "image": String,
+				"isfollow": Boolean,
+        "following": [
+            "팔로우 한 사용자의 id"
+        ],
+        "follower": [],
+        "followerCount": 0,
+        "followingCount": 1
+    }
+
+
+    

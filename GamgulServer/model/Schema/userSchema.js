@@ -47,15 +47,13 @@ const schema = mongoose.Schema({
     },
     following:{
         type: Schema.Types.Mixed,
-        default: []
+        default: [],
+        unique: true
     },
     follower: {
         type: Schema.Types.Mixed,
-        default: []
-    },
-    followCount: {
-        type: Number,
-        default:0
+        default: [],
+        unique: true
     },
     pubDate: {
         type: Date,

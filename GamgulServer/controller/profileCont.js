@@ -11,7 +11,7 @@ const preprofile = async (req,res) => {
         delete json.hearts;
         delete json.pubDate;
         delete json.modDate;
-        const result = data[0].following.find(id => id == infouser.id);
+        const result = data[0].follower.find(id => id == infouser.id);
         if(result) {
             json.isfollow = true;
         } else {
@@ -23,4 +23,16 @@ const preprofile = async (req,res) => {
     }
 }
 
-module.exports = {preprofile}
+const follow = async (req, res) => {
+    const { accountname } = req.params;
+    const { infouser } = req.body;
+    try {
+        const data = await service.follow(accountname,infouser);
+        console.log(data);
+        res.status(200).json(data);
+    } catch(error) {
+        res.status(400).json({"message" : "해당 계정이 존재하지 않습니다."});
+    }
+}
+
+module.exports = {preprofile, follow}
