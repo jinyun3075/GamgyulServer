@@ -7,10 +7,7 @@ const auth = async (req,res,next) => {
         const token1 = await bcrypt.compare(process.env.TOKEN,key[1]);
         const token2 = jwt.verify(cookie.split("=")[1],process.env.TOKEN2);
         req.body.infouser = {
-            user:{
-                id : token2._id,
-                user : token2.username
-            }
+            id : token2._id
         }
         if(token1&&token2) {
             next();

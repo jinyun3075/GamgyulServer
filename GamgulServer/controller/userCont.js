@@ -51,7 +51,7 @@ const login = async (req, res) => {
             }
         }
         const token2 = jwt.sign({
-            _id: data._id
+            _id: data._id,
         },process.env.TOKEN2,
         {
             expiresIn: "3d",
@@ -86,8 +86,4 @@ const updateuser = async (req,res) => {
     }
 }
 
-const oneuser = async (req,res) => {
-    const { accountname } = req.params;
-    const data = await service.oneuser(accountname);
-}
 module.exports = {sign, login, alluser, updateuser};
