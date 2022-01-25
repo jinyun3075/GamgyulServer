@@ -15,25 +15,21 @@
     - /user (post)
 
 - req
-    - "user": {
-        "username": String,
-        "email": String,
-        "password": String,
-        "accountname": String,
-        "intro": String,
-        "image": String
-    }
-    
+    - user
+        - username: String
+        - email: String
+        - password: String
+        - accountname: String
+        - intro: String
+        - image: String
 - res
-    - "user": {
-        "_id": String,
-        "username": String,
-        "email": String,
-        "accountname": String,
-        "intro": String,
-        "image": String,
-    }
-  
+    - user
+        - _id: String
+        - username: String
+        - email: String
+        - accountname: String
+        - intro: String
+        - image: String
 - fail
     - email, password, accountname, username 중 하나라도 작성하지 않을 경우 필수 입력사항을 입력해주세요. 
     - password를 6자 이상 입력하지 않을 경우 비밀번호는 6자 이상이어야 합니다. 
@@ -46,37 +42,34 @@
 - api 
     - /user/login (post)
 - req
-    - "user":{
-        "email": String,
-        "password": String
-    }
+    - user
+        - email: String
+        - password: String
 - res
-    - "user": {
-        "_id": String,
-        "username": String,
-        "email": String,
-        "accountname": String,
-        "image": String,
-        "token": String
-    }
+    - user
+        - _id: String,
+        - username: String
+        - email: String
+        - accountname: String
+        - image: String
+        - token: String
 - fail
     - 이메일 또는 비밀번호를 입력하지 않을때
 ### 전체 유저
 - api
     - /user (get)
 - res
-    - "user": {
-        "_id": String,
-        "email": String,
-        "hearts": [],
-        "following": [],
-        "follower": [],
-        "password": String,
-        "username": String,
-        "accountname": String,
-        "intro": String,
-        "image": String
-    }
+    - user
+        - _id: String
+        - email: String
+        - hearts: []
+        - following: []
+        - follower: []
+        - password: String
+        - username: String
+        - accountname: String
+        - intro: String
+        - image: String
 ## 이미지
 ### 한개의 이미지
 - api
@@ -86,14 +79,14 @@
     - value: 이미지 파일
  
 - res
-    - "fieldname": String,
-	- "originalname": String,
-	- "encoding": String,
-	- "mimetype": String,
-	- "destination": String,
-	- "filename": String,
-	- "path": String,
-	- "size": number
+    - fieldname: String
+	- originalname: String
+	- encoding: String
+	- mimetype: String
+	- destination: String
+	- filename: String
+	- path: String
+	- size: number
 
 - fail
     - 이미지 파일(*.jpg, *.gif, *.png, *.jpeg, *.bmp, *.tif) 확장자명이 다를 때
@@ -114,49 +107,48 @@
 - api
     - /user (put)
 - req
-    - user:{
-        username: String,
-        accountname: String,
-        intro: String,
-        image: String
-    }
+    - user
+        - username: String
+        - accountname: String
+        - intro: String
+        - image: String
 
 - headers
     - "Authorization" : “Bearer key”
 	- "Content-type" : application/json
 
 - res
-    - "user": {
-        "_id": String,
-        "username": String,
-        "accountname": String,
-        "intro": String,
-        "image": String,
-        "following": [],
-        "follower": [],
-        "followerCount": Number,
-        "followingCount": Number
+    - user
+        - _id: String
+        - username: String
+        - accountname: String
+        - intro: String
+        - image: String
+        - following: []
+        - follower: []
+        - followerCount: Number
+        - followingCount: Number
     }
 ### 개인 프로필
 - api
     - /profile/:accountname (get)
 
 - headers
-    - "Authorization" : “Bearer key”
-	- "Content-type" : application/json
+    - Authorization : “Bearer key”
+	- Content-type : "application/json"
 
 - res
-    - "profile": {
-        "_id": String,
-        "username": String,
-        "accountname": String,
-        "intro": String,
-        "image": String,
-        "isfollow": Boolean,
-        "following": [],
-        "follower": [],
-        "followerCount": Number,
-        "followingCount": Number
+    - profile
+        - _id: String
+        - username: String
+        - accountname: String
+        - intro: String
+        - image: String
+        - isfollow: Boolean
+        - following: []
+        - follower: []
+        - followerCount: Number
+        - followingCount: Number
     }
 
 - fail
@@ -166,39 +158,35 @@
 - api
     - /profile/:accountname/follow (post)
 - headers
-    - "Authorization" : “Bearer key”
-	- "Content-type" : application/json
+    - Authorization : Bearer key
+	- Content-type : application/json
 - res
     - follow 한 사용자의 프로필
-    - "profile": {
-        "_id": String,
-        "username": String,
-        "accountname": String,
-        "intro": String,
-        "image": String,
-				"isfollow": Boolean,
-        "following": [],
-        "follower": [
-            "접속한 사용자의 id"
-        ],
-        "followerCount": 1,
-        "followingCount": 0
+    - profile
+        - _id: String
+        - username: String
+        - accountname: String
+        - intro: String
+        - image: String
+		- isfollow: Boolean
+        - following: []
+        - follower: ["접속한 사용자의 id"]
+        - followerCount: 1
+        - followingCount: 0
     }
     
     - 접속한 사용자의 프로필
-    - "profile": {
-        "_id": String,
-        "username": String,
-        "accountname": String,
-        "intro": String,
-        "image": String,
-				"isfollow": Boolean,
-        "following": [
-            "팔로우 한 사용자의 id"
-        ],
-        "follower": [],
-        "followerCount": 0,
-        "followingCount": 1
+    - profile
+        - _id: String
+        - username: String
+        - accountname: String
+        - intro: String
+        - image: String
+		- isfollow: Boolean
+        - following: ["팔로우 한 사용자의 id"]
+        - follower: []
+        - followerCount: 0
+        - followingCount: 1
     }
 - fail
     - 해당 계정이 존재하지 않습니다.
@@ -206,35 +194,34 @@
 - api
     - /profile/:accountname/unfollow (delete)
 - headers
-    - "Authorization" : “Bearer key”
-	- "Content-type" : application/json
+    - Authorization : Bearer key
+	- Content-type : application/json
 - res
     - follow 한 사용자의 프로필
-    - "profile": {
-        "_id": String,
-        "username": String,
-        "accountname": String,
-        "intro": String,
-        "image": String,
-				"isfollow": Boolean,
-        "following": [],
-        "follower": [],
-        "followerCount": 0,
-        "followingCount": 0
-    }
+    - profile
+        - _id: String
+        - username: String
+        - accountname: String
+        - intro: String
+        - image: String
+		- isfollow: Boolean
+        - following: []
+        - follower: []
+        - followerCount: 0
+        - followingCount: 0
     
     - 접속한 사용자의 프로필
-    - "profile": {
-        "_id": String,
-        "username": String,
-        "accountname": String,
-        "intro": String,
-        "image": String,
-				"isfollow": Boolean,
-        "following": [],
-        "follower": [],
-        "followerCount": 0,
-        "followingCount": 0
+    - profile
+        - _id: String
+        - username: String
+        - accountname: String
+        - intro: String
+        - image: String
+		- isfollow: Boolean
+        - following: []
+        - follower: []
+        - followerCount: 0
+        - followingCount: 0
     }
 - fail
     - 해당 계정이 존재하지 않습니다.
