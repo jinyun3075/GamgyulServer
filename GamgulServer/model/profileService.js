@@ -61,6 +61,30 @@ const unfollow = async (accountname, infouser) => {
     return data;
 }
 
+const followingList = async (accountname, query) => {
+    const user =await userdata.findOne({accountname}).skip(query.skip).limit(query.limit);
+    return followListDto(user.following);
+}
+
+const followerList = async (accountname, query) => {
+    const user =await userdata.findOne({accountname}).skip(query.skip).limit(query.limit);
+    return followListDto(user.follower);
+}
+
+const followListDto = async (user) => {
+    const dtolist = [];
+    for (const id of user) {
+        let dto = await userdata.findById(id);
+        let json = dto.toJSON();
+        delete json.password;
+        delete json.pubDate;
+        delete json.modDate;
+        json.followerCount = dto.follower.length;
+        json.followingCount = dto.following.length;
+        dtolist.push(json);
+    }
+    return await dtolist;
+}
 const checkfollow = (follow, infouserid) => {
     return follow.follower.find(id => id == infouserid);
 }
@@ -88,4 +112,4 @@ const followDto = (follower,following,check1,check2)=> {
     follower.followingCount = follower.following.length;
     following.followingCount = following.following.length;
 }
-module.exports = {preprofile, follow, unfollow};
+module.exports = {preprofile, follow, unfollow, followingList,followerList};

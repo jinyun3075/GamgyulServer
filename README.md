@@ -225,3 +225,47 @@
     }
 - fail
     - 해당 계정이 존재하지 않습니다.
+
+### 팔로잉 리스트
+- api
+    - /profile/:accountname/following (get)
+    - /profile/:accountname/following?limit=Number&skip=Number (get)
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+- res
+    - []
+        - _id: String
+        - username: String
+        - accountname: String
+        - intro: String
+        - image: String
+		- isfollow: Boolean
+        - following: []
+        - follower: ["접속한 사용자의 id"]
+        - followerCount: 1
+        - followingCount: 0
+- fail
+    - 해당 계정이 존재하지 않습니다.
+
+### 팔로워 리스트
+- api
+    - /profile/:accountname/follower (get)
+    - /profile/:accountname/follower/?limit=Number&skip=Number (get)
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+- res
+    - []
+        - _id: String
+        - username: String
+        - accountname: String
+        - intro: String
+        - image: String
+		- isfollow: Boolean
+        - following: []
+        - follower: ["접속한 사용자의 id"]
+        - followerCount: 1
+        - followingCount: 0
+- fail
+    - 해당 계정이 존재하지 않습니다.
