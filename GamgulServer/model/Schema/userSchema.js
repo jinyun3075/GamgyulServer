@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 const schema = mongoose.Schema({
     username: {
         type: String,
@@ -10,22 +9,22 @@ const schema = mongoose.Schema({
         type: String,
         maxLength: 100,
         require: "필수 입력사항을 입력해주세요.",
+        unique: true,
         validate:[
             (accountname)=> {
                 return !/[^a-z|^A-Z|^가-힣|^/.|^/_|^0-9]/g.test(accountname);
             },'영문, 숫자, 밑줄, 마침표만 사용할 수 있습니다.'
         ],
-        unique: true
     },
     email : {
         type: String,
         require: "필수 입력사항을 입력해주세요.",
+        unique: true,
         validate:[
             (email)=>{
                 return /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/.test(email);
             },'잘못된 이메일 형식입니다.'
         ],
-        unique: true
     },
     password : {
         type: String,
@@ -35,25 +34,22 @@ const schema = mongoose.Schema({
     intro: {
         type: String,
         maxLength:500,
-        require: false
     },
     image: {
         type: String,
         default: "default.png"
     },
     hearts: {
-        type: Schema.Types.Mixed,
+        type: Array,
         default: []
     },
     following:{
-        type: Schema.Types.Mixed,
-        default: [],
-        unique: true
+        type: Array,
+        default: []
     },
     follower: {
-        type: Schema.Types.Mixed,
-        default: [],
-        unique: true
+        type: Array,
+        default: []
     },
     pubDate: {
         type: Date,
@@ -94,4 +90,6 @@ schema.post('save', function(error, doc, next) {
 //         username : this.username
 //     }
 // }
-module.exports = mongoose.model("post",schema);
+// module.exports = mongoose.model("user",schema);
+const model = mongoose.model("user",schema);
+module.exports = {schema, model}

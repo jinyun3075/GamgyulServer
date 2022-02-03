@@ -1,6 +1,6 @@
-const data = require('./Schema/userSchema');
+const data = require('./Schema/userSchema').model;
 const bcrypt = require('bcrypt')
-const create = (user)=>{
+const create = async (user)=>{
     const pw = bcrypt.hashSync(user.password,10);
     const Schema = new data({
         email : user.email,
@@ -10,7 +10,10 @@ const create = (user)=>{
         intro : user.intro,
         image : user.image
     })
-    return Schema.save();
+    const res = await Schema.save();
+    const json = res.toJSON();
+    delete json.password;
+    return json
 }
 const login = async (user)=> {
     const dbuser = await data.findOne({email:user.email});
@@ -42,4 +45,24 @@ const updateuser = (infouser, user) => {
         );
 }
 
-module.exports = {create, login, alluser, updateuser};
+const search = async (keyword)=> {
+    const user = await data.find({$or:[{username : new RegExp(keyword)},{accountname : new RegExp(keyword)}]});
+    const dtolist = [];
+    for (const id of user) {
+        let dto = await data.findById(id);
+        let json = dto.toJSON();
+        delete json.intro;
+        delete json.image;
+        delete json.hearts;
+        delete json.email;
+        delete json.password;
+        delete json.pubDate;
+        delete json.modDate;
+        json.followerCount = dto.follower.length;
+        json.followingCount = dto.following.length;
+        dtolist.push(json);
+    }
+    return dtolist;
+}
+
+module.exports = {create, login, alluser, updateuser, search};
