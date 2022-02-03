@@ -3,5 +3,7 @@ const controller = require('../controller/postCont');
 const router = express.Router();
 const auth = require('../midd/Auth');
 
-router.post('/', auth, controller.create)
+router.get('/feed', auth, controller.feed)
+router.post('/', auth, controller.create);
+
 module.exports = router;

@@ -5,7 +5,7 @@ const schema = mongoose.Schema({
         require: "내용을 입력해 주세요.",
     },
     image : {
-        type: String,
+        type: Array,
         require: "이미지를 입력해 주세요.",
     },
     hearts: {
