@@ -269,3 +269,67 @@
         - followingCount: 0
 - fail
     - 해당 계정이 존재하지 않습니다.
+
+## 게시글 작성
+- api
+    - /post (post)
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+- req
+    - post
+        - content : String
+        - image : String
+- res
+    - post
+        - id : String
+        - content : String
+        - image : String
+        - createdAt : String
+        - updatedAt : String
+        - hearted : False
+        - heartCount : Number
+        - commentCount : Number
+        - author
+            - id : String
+            - username : String
+            - accountname : String
+            - following : []
+            - follower : []
+            - followerCount : Number
+            - followingCount : Number
+- fail
+    - 내용 또는 이미지를 입력하지 않았을 떄
+
+
+## 팔로워 게시글 목록(피드)
+- api
+    - /post/feed (get)
+    - /post/feed/?limit=Number&skip=Number (get)
+
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- res
+    - 팔로워한 사용자가 있을때
+    - post
+        - id : String
+        - content : String
+        - image : String
+        - createdAt : String
+        - updatedAt : String
+        - hearted : False
+        - heartCount : Number
+        - commentCount : Number
+        - author
+            - id : String
+            - username : String
+            - accountname : String
+            - following : []
+            - follower : []
+            - followerCount : Number
+            - followingCount : 
+- fail
+    - follow 한 사용자가 없을 때
+    - post : []
