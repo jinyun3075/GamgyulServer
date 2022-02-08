@@ -1,13 +1,8 @@
 # 감귤서버
-## npm
-- cors
-- express
-- dotenv
-- mongoose
-- multer
-- body-parser
-- bcrypt
-- jsonwebtoken
+## 실행 방법
+- GamgulServer 폴더로 이동한다.
+- npm i cors express dotenv mongoose multer body-parser bcrypt jsonwebtoken 를 입력하여 패키지를 다운받는다.
+- npm start 를 입력하여 서버 실행
 
 ## 유저
 ### 회원가입
@@ -329,7 +324,38 @@
             - following : []
             - follower : []
             - followerCount : Number
-            - followingCount : 
+            - followingCount : Number
 - fail
     - follow 한 사용자가 없을 때
     - post : []
+
+## 나의 게시글 목록
+- api
+    - /post/:accountname/userpost (get)
+    - /post/:accountname/userpost/?limit=Number&skip=Number (get)
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+- res
+    - post
+        - id : String
+        - content : String
+        - image : String
+        - createdAt : String
+        - updatedAt : String
+        - hearted : False
+        - heartCount : Number
+        - commentCount : Number
+        - author
+            - id : String
+            - username : String
+            - accountname : String
+            - following : []
+            - follower : []
+            - followerCount : Number
+            - followingCount : Number
+    - 해당 계정의 게시물이 존재하지 않을 떄
+        - post: []
+    
+    - FAIL
+        - 해당 계정이 존재하지 않습니다.
