@@ -21,4 +21,15 @@ const feed = async (req,res) => {
     }
 }
 
-module.exports = { create, feed };
+const getMyList = async (req, res) => {
+    const { accountname } = req.params;
+    const query = req.query;
+    try {
+        const data = await service.getMyList(accountname, query);
+        res.status(200).json(data);
+    } catch(error) {
+        res.status(400).json(error.message);
+    }
+}
+
+module.exports = { create, feed, getMyList };
