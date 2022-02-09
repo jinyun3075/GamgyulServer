@@ -3,6 +3,48 @@
 - GamgulServer 폴더로 이동한다.
 - npm i cors express dotenv mongoose multer body-parser bcrypt jsonwebtoken 를 입력하여 패키지를 다운받는다.
 - npm start 를 입력하여 서버 실행
+## 목차
+[1. 유저](#유저)
+
+- [1.1 회원가입](#회원가입)
+
+- [1.2 로그인](#로그인)
+
+- [1.3 전체 유저](#전체-유저)
+
+[2. 이미지](#이미지)
+
+- [2.1 한개의 이미지](#한개의-이미지)
+
+- [2.2 여러개의 이미지](#여러개의-이미지)
+
+- [2.2 이미지 자세히 보기](#이미지-자세히-보기)
+
+[3. 프로필](#프로필)
+
+- [3.1 프로필 수정](#프로필-수정)
+
+- [3.2 개인 프로플](#개인-프로필)
+
+- [3.3 팔로우](#팔로우)
+
+- [3.4 언팔로우](#언팔로우)
+
+- [3.5 팔로잉 리스트](#팔로잉-리스트)
+
+- [3.6 팔로워 리스트](#팔로워-리스트)
+
+[4. 댓글](#댓글)
+
+- [4.1 댓글 작성](#댓글-작성)
+
+[5. 게시글](#게시글)
+
+- [5.1 게시글 작성](#게시글-작성)
+
+- [5.2 팔로워 게시글 목록(피드)](#팔로워-게시글-목록(피드))
+
+- [5.3 나의 게시글 목록](#나의-게시글-목록)
 
 ## 유저
 ### 회원가입
@@ -264,8 +306,23 @@
         - followingCount: 0
 - fail
     - 해당 계정이 존재하지 않습니다.
-
-## 게시글 작성
+## 검색
+### 유저 검색
+- api
+    - /user/searchuser/?keyword=keyword
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+- res
+    - id: String
+    - username: String
+    - accountname: String
+    - following: []
+    - follower: []
+    - followerCount: Number
+    - followingCount: Number
+## 게시글
+### 게시글 작성
 - api
     - /post (post)
 - headers
@@ -297,7 +354,7 @@
     - 내용 또는 이미지를 입력하지 않았을 떄
 
 
-## 팔로워 게시글 목록(피드)
+### 팔로워 게시글 목록(피드)
 - api
     - /post/feed (get)
     - /post/feed/?limit=Number&skip=Number (get)
@@ -329,7 +386,7 @@
     - follow 한 사용자가 없을 때
     - post : []
 
-## 나의 게시글 목록
+### 나의 게시글 목록
 - api
     - /post/:accountname/userpost (get)
     - /post/:accountname/userpost/?limit=Number&skip=Number (get)
