@@ -29,4 +29,10 @@ const schema = mongoose.Schema({
     }
 })
 
+schema.post('findOne', function(error, doc, next) {
+    if(error.kind=="ObjectId"){
+        next(new Error("존재하지 않는 게시글입니다."))
+    }
+    next(error);
+})
 module.exports = mongoose.model("post",schema);

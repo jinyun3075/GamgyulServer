@@ -42,10 +42,7 @@ const view = async (post_id) => {
 }
 
 const update = async (post, post_id, infouser) => {
-    const check = await data.findById(post_id);
-    if(!check){
-        throw new Error("존재하지 않는 게시글입니다.")
-    }
+    const check = await data.findOne({_id:post_id});
     if(check.author==infouser.id){
         const dto = await data.findByIdAndUpdate(post_id,
             {
@@ -59,6 +56,16 @@ const update = async (post, post_id, infouser) => {
         throw new Error("잘못된 요청입니다. 로그인 정보를 확인하세요")
     }
 }
+
+const deletePost = async (post_id, infouser) => {
+    const check = await data.findOne({_id:post_id});
+    if(check.author==infouser.id){
+        return data.findByIdAndDelete(post_id);
+    } else {
+        throw new Error("잘못된 요청입니다. 로그인 정보를 확인하세요")
+    }
+}
+
 const setInfo = (info) => {
     const infojson = info.toJSON();
     delete infojson.password;
@@ -95,4 +102,4 @@ const setListPost = (post, infojson) => {
     }
     return dto;
 }
-module.exports = { create, list, getMyList, view, update };
+module.exports = { create, list, getMyList, view, update , deletePost};

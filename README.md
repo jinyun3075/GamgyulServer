@@ -1,4 +1,4 @@
-# 감귤서버
+# 감귤서버 API
 ## 실행 방법
 - GamgulServer 폴더로 이동한다.
 - npm i cors express dotenv mongoose multer body-parser bcrypt jsonwebtoken 를 입력하여 패키지를 다운받는다.
@@ -49,6 +49,7 @@
 - [5.4 게시글 상세](#게시글-상세)
 
 - [5.5 게시글 수정](#게시글-수정)
+- [5.6 게시글 삭제](#게시글-삭제)
 
 ## 유저
 ### 회원가입
@@ -494,5 +495,20 @@
             - followerCount : Number
             - followingCount : Number
 - fail
-    - 잘못된 요청입니다. 로그인 정보를 확인하세요. ( 다른 사용자가 해당 게시물을 수정할 경우)
     - 존재하지 않는 게시글입니다.
+    - 잘못된 요청입니다. 로그인 정보를 확인하세요. ( 다른 사용자가 해당 게시물을 수정할 경우)
+
+### 게시글 삭제
+- api
+    - /post/:post_id (delete)
+
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- res
+    - 삭제되었습니다.
+
+- fail
+    - 존재하지 않는 게시글입니다.
+    - 잘못된 요청입니다. 로그인 정보를 확인하세요. ( 다른 사용자가 해당 게시물을 수정할 경우)
