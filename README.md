@@ -46,6 +46,8 @@
 
 - [5.3 나의 게시글 목록](#나의-게시글-목록)
 
+- [5.4 게시글 상세](#게시글-상세);
+
 ## 유저
 ### 회원가입
 - api
@@ -390,9 +392,11 @@
 - api
     - /post/:accountname/userpost (get)
     - /post/:accountname/userpost/?limit=Number&skip=Number (get)
+
 - headers
     - Authorization: Bearer key
 	- Content-type: application/json
+
 - res
     - post
         - id : String
@@ -414,5 +418,35 @@
     - 해당 계정의 게시물이 존재하지 않을 떄
         - post: []
     
-    - FAIL
+    - fail
         - 해당 계정이 존재하지 않습니다.
+
+### 게시글 상세
+
+- api
+    - /post/:post_id (get)
+
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- res
+    - post
+        - id: String
+        - content: String
+        - image: String
+        - createdAt: String
+        - updatedAt: String
+        - heartCount : Number
+        - commentCount : Number
+        - author
+            - id : String
+            - username : String
+            - accountname : String
+            - following : []
+            - follower : []
+            - followerCount : Number
+            - followingCount : Number
+    
+    - fail
+        - 게시글이 존재하지 않습니다.

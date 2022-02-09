@@ -8,15 +8,8 @@ const create = async (post,id)=>{
     });
     const json = await Schema.save();
     const author = await user.findById(json.author);
-    const dto = json.toJSON();
     const infouser = setInfo(author);
-    dto.heartCount = dto.hearts.length;
-    dto.commentCount = dto.comments.length;
-    delete dto.hearts;
-    delete dto.comments;
-    dto.hearted = false;
-    dto.author = infouser;
-    return dto;
+    return setPost(json,infouser);
 }
 
 const list = async (query, id) => {
@@ -27,7 +20,7 @@ const list = async (query, id) => {
         const infoid = info.id;
         const board = await data.find({author:infoid});
         const infouser = setInfo(info);
-        dto.push(setPost(board ,infouser));
+        dto.push(setListPost(board ,infouser));
     }
     return dto;
     // .skip(query.skip).limit(query.limit);
@@ -38,7 +31,15 @@ const getMyList = async (accountname, query) => {
     const id = info.id;
     const post = await data.find({author:id}).skip(query.skip).limit(query.limit);
     const infojson = setInfo(info);
-    return setPost(post, infojson);
+    return setListPost(post, infojson);
+}
+
+const view = async (post_id) => {
+    const post = await data.findById(post_id);
+    const userinfo = await user.findById(post.author);
+    const infojson = setInfo(userinfo);
+    return setPost(post,infojson);
+
 }
 
 const setInfo = (info) => {
@@ -52,6 +53,16 @@ const setInfo = (info) => {
 }
 
 const setPost = (post, infojson) => {
+    const json = post.toJSON();
+    json.heartCount = json.hearts.length;
+    json.commentCount = json.comments.length;
+    delete json.hearts;
+    delete json.comments;
+    json.hearted = false;
+    json.author = infojson;
+    return json;
+}
+const setListPost = (post, infojson) => {
     const dto =[];
     for (const list of post) {
         const json = list.toJSON();
@@ -65,4 +76,4 @@ const setPost = (post, infojson) => {
     }
     return dto;
 }
-module.exports = { create, list, getMyList };
+module.exports = { create, list, getMyList, view };

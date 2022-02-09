@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
-const db = async ()=>{
+const setDB = async ()=>{
     mongoose.connect(process.env.DATA_URL);
+    // mongoose.connect(process.env.LOCAL);
     const db = mongoose.connection;
     db.on('error',()=>{
         console.log("DB연결 실패");
@@ -10,4 +11,4 @@ const db = async ()=>{
         console.log("DB연결 성공");
     });
 }
-module.exports = db;
+module.exports = setDB;
