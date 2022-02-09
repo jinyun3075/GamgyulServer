@@ -48,6 +48,8 @@
 
 - [5.4 게시글 상세](#게시글-상세)
 
+- [5.5 게시글 수정](#게시글-수정)
+
 ## 유저
 ### 회원가입
 - api
@@ -341,7 +343,7 @@
 - req
     - post
         - content : String
-        - image : String
+        - image : [""]
 - res
     - post
         - id : String
@@ -378,7 +380,7 @@
     - post
         - id : String
         - content : String
-        - image : String
+        - image : []
         - createdAt : String
         - updatedAt : String
         - hearted : False
@@ -409,10 +411,10 @@
     - post
         - id : String
         - content : String
-        - image : String
+        - image : []
         - createdAt : String
         - updatedAt : String
-        - hearted : False
+        - hearted : false
         - heartCount : Number
         - commentCount : Number
         - author
@@ -423,6 +425,7 @@
             - follower : []
             - followerCount : Number
             - followingCount : Number
+    
     - 해당 계정의 게시물이 존재하지 않을 떄
         - post: []
     
@@ -442,7 +445,7 @@
     - post
         - id: String
         - content: String
-        - image: String
+        - image: []
         - createdAt: String
         - updatedAt: String
         - heartCount : Number
@@ -458,3 +461,38 @@
     
 - fail
     - 게시글이 존재하지 않습니다.
+
+### 게시글 수정
+- api
+    - /post/:post_id (put)
+
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- req
+    - post
+        - content: String
+        - image: []
+
+- res
+    - post
+        - id : String
+        - content : String
+        - image : []
+        - createdAt : String
+        - updatedAt : String
+        - hearted : false
+        - heartCount : Number
+        - commentCount : Number
+        - author
+            - id : String
+            - username : String
+            - accountname : String
+            - following : []
+            - follower : []
+            - followerCount : Number
+            - followingCount : Number
+- fail
+    - 잘못된 요청입니다. 로그인 정보를 확인하세요. ( 다른 사용자가 해당 게시물을 수정할 경우)
+    - 존재하지 않는 게시글입니다.
