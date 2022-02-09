@@ -39,9 +39,26 @@ const view = async (post_id) => {
     const userinfo = await user.findById(post.author);
     const infojson = setInfo(userinfo);
     return setPost(post,infojson);
-
 }
 
+const update = async (post, post_id, infouser) => {
+    const check = await data.findById(post_id);
+    if(!check){
+        throw new Error("존재하지 않는 게시글입니다.")
+    }
+    if(check.author==infouser.id){
+        const dto = await data.findByIdAndUpdate(post_id,
+            {
+                content: post.content,
+                image: post.image
+            },{new:true});
+        const info = await user.findById(infouser.id);
+        const infojson = setInfo(info);
+        return setPost(dto, infojson);
+    }else  {
+        throw new Error("잘못된 요청입니다. 로그인 정보를 확인하세요")
+    }
+}
 const setInfo = (info) => {
     const infojson = info.toJSON();
     delete infojson.password;
@@ -49,6 +66,8 @@ const setInfo = (info) => {
     delete infojson.intro;
     delete infojson.pubDate;
     delete infojson.modDate;
+    infojson.followingCount = info.following.length;
+    infojson.followerCount = info.follower.length;
     return infojson;
 }
 
@@ -76,4 +95,4 @@ const setListPost = (post, infojson) => {
     }
     return dto;
 }
-module.exports = { create, list, getMyList, view };
+module.exports = { create, list, getMyList, view, update };

@@ -43,4 +43,14 @@ const view = async (req, res) => {
     
 }
 
-module.exports = { create, feed, getMyList, view };
+const update = async (req, res) => {
+    const { post_id } = req.params;
+    const { post, infouser } = req.body;
+    try {
+        const data = await service.update(post, post_id, infouser);
+        res.status(200).json(data);
+    }catch(error) {
+        res.status(400).json(error.message);
+    }
+}
+module.exports = { create, feed, getMyList, view, update };
