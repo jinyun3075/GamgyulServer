@@ -39,10 +39,10 @@ const schema = mongoose.Schema({
         type: String,
         default: "default.png"
     },
-    hearts: {
-        type: Array,
-        default: []
-    },
+    // hearts: {
+    //     type: Array,
+    //     default: []
+    // },
     following:{
         type: Array,
         default: []

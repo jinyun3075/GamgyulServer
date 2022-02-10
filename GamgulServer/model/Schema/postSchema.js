@@ -35,4 +35,8 @@ schema.post('findOne', function(error, doc, next) {
     }
     next(error);
 })
+
+schema.post('findById',function(error,doc,next){
+    next(error)
+})
 module.exports = mongoose.model("post",schema);

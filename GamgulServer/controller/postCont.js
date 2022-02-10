@@ -64,4 +64,27 @@ const deletePost = async (req, res) => {
         res.status(400).json(error.message);
     }
 }
-module.exports = { create, feed, getMyList, view, update, deletePost};
+
+const heart = async (req, res) => {
+    const {infouser} = req.body;
+    const {post_id} = req.params;
+    try {
+        const data = await service.heart(post_id, infouser);
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
+}
+
+const unheart = async (req, res) => {
+    const {infouser} = req.body;
+    const {post_id} = req.params;
+    try {
+        const data = await service.unheart(post_id, infouser);
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
+}
+
+module.exports = { create, feed, getMyList, view, update, deletePost, heart, unheart};

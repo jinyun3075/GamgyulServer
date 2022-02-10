@@ -65,7 +65,29 @@ const deletePost = async (post_id, infouser) => {
         throw new Error("잘못된 요청입니다. 로그인 정보를 확인하세요")
     }
 }
+const heart = async (post_id, infouser) => {
+    const post = await data.findOne({_id:post_id});
+    const userid = infouser.id;
+    if(!post.hearts.find(p => p==infouser.id)){
+        let heart = await data.findByIdAndUpdate(post_id,{$push:{hearts:userid}},{new:true});
+        const info = await user.findById(post.author);
+        const infojson = setInfo(info);
+        return heartDto(heart, infojson, true);
+    }
+    throw new Error("좋아요 되어 있습니다.")
+}
 
+const unheart = async (post_id, infouser) => {
+    const post = await data.findOne({_id:post_id});
+    const userid = infouser.id;
+    if(post.hearts.find(p => p==infouser.id)){
+        let heart = await data.findByIdAndUpdate(post_id,{$pull:{hearts:userid}},{new:true});
+        const info = await user.findById(post.author);
+        const infojson = setInfo(info);
+        return heartDto(heart, infojson, false);
+    }
+    throw new Error("좋아요 안되어 있습니다.")
+}
 const setInfo = (info) => {
     const infojson = info.toJSON();
     delete infojson.password;
@@ -78,6 +100,18 @@ const setInfo = (info) => {
     return infojson;
 }
 
+const heartDto = (post, infojson, state) => {
+    const json = post.toJSON();
+    json.heartCount = json.hearts.length;
+    delete json.comments;
+    if(state == true){
+        json.hearted = true;
+    }else  {
+        json.hearted = false;
+    }
+    json.author = infojson;
+    return json;
+}
 const setPost = (post, infojson) => {
     const json = post.toJSON();
     json.heartCount = json.hearts.length;
@@ -102,4 +136,4 @@ const setListPost = (post, infojson) => {
     }
     return dto;
 }
-module.exports = { create, list, getMyList, view, update , deletePost};
+module.exports = { create, list, getMyList, view, update , deletePost, heart, unheart};
