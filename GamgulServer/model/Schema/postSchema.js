@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const comment = mongoose.Schema({
+    
+})
 const schema = mongoose.Schema({
     content: {
         type: String,

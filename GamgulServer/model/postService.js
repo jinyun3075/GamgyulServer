@@ -88,6 +88,12 @@ const unheart = async (post_id, infouser) => {
     }
     throw new Error("좋아요 안되어 있습니다.")
 }
+
+const comment = (infouser, comments, post_id) => {
+    const post = await data.findOne({_id:post_id});
+    
+}
+
 const setInfo = (info) => {
     const infojson = info.toJSON();
     delete infojson.password;

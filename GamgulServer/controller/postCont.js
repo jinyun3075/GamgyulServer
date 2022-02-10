@@ -87,4 +87,14 @@ const unheart = async (req, res) => {
     }
 }
 
+const comment = async (req, res) => {
+    const {infouser, comment} = req.body;
+    const {post_id} = req.params;
+
+    try {
+        const data = await service.comment(infouser, comment, post_id);
+    } catch (error) {
+
+    }
+}
 module.exports = { create, feed, getMyList, view, update, deletePost, heart, unheart};

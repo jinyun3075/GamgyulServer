@@ -1,6 +1,7 @@
 # 감귤서버 API
 ## 실행 방법
 - GamgulServer 폴더로 이동한다.
+- model -> config.js 파일에서 DB 설정
 - npm i cors express dotenv mongoose multer body-parser bcrypt jsonwebtoken 를 입력하여 패키지를 다운받는다.
 - npm start 를 입력하여 서버 실행
 ## 목차
@@ -49,12 +50,22 @@
 - [5.4 게시글 상세](#게시글-상세)
 
 - [5.5 게시글 수정](#게시글-수정)
+
 - [5.6 게시글 삭제](#게시글-삭제)
 
 [6. 좋아요](#좋아요)
 
 - [6.1 좋아요](#좋아요)
+
 - [6.2 좋아요 취소](#좋아요-취소)
+
+[7. 댓글](#댓글)
+
+- [7.1 댓글 작성](#댓글-작성)
+
+- [7.2 댓글 리스트](#댓글-리스트)
+
+- [7.3 댓글 삭제](#댓글-삭제)
 
 ## 유저
 ### 회원가입
@@ -577,3 +588,35 @@
             - followingCount : Number
 - fail
     - 존재하지 않는 게시글입니다.
+
+## 댓글
+### 댓글 작성
+- api
+    - /post/:post_id/comments (post)
+
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- req
+    - comment
+        - content: String
+
+- res
+    - comment
+        - id: Sting
+        - content: Sting
+        - createdAt: Sting
+        - author
+            - _id: "작성자 id"
+            - username: String
+            - accountname: String
+            - intro: String
+            - image: String
+            - following: []
+            - follower: []
+            - followerCount: Number
+            - followingCount: Number
+- fail
+    - 존재하지 않는 게시글입니다.
+    - 댓글을 입력해주세요.
