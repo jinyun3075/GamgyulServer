@@ -511,4 +511,64 @@
 
 - fail
     - 존재하지 않는 게시글입니다.
-    - 잘못된 요청입니다. 로그인 정보를 확인하세요. ( 다른 사용자가 해당 게시물을 수정할 경우)
+    - 잘못된 요청입니다. 로그인 정보를 확인하세요. ( 다른 사용자가 해당 게시물을 수정할 경우)]
+
+## 좋아요
+
+### 좋아요
+- api
+    - /post/:post_id/heart (post)
+
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- res
+     - post
+        - id : String
+        - content : String
+        - image : []
+        - createdAt : String
+        - updatedAt : String
+        - hearted : true
+        - heartCount : Number
+        - commentCount : Number
+        - author
+            - id : String
+            - username : String
+            - accountname : String
+            - following : []
+            - follower : []
+            - followerCount : Number
+            - followingCount : Number
+- fail
+    - 존재하지 않는 게시글입니다.
+
+### 좋아요 취소
+- api
+    - /post/:post_id/unheart (delete)
+
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- res
+     - post
+        - id : String
+        - content : String
+        - image : []
+        - createdAt : String
+        - updatedAt : String
+        - hearted : true
+        - heartCount : Number
+        - commentCount : Number
+        - author
+            - id : String
+            - username : String
+            - accountname : String
+            - following : []
+            - follower : []
+            - followerCount : Number
+            - followingCount : Number
+- fail
+    - 존재하지 않는 게시글입니다.
