@@ -620,3 +620,34 @@
 - fail
     - 존재하지 않는 게시글입니다.
     - 댓글을 입력해주세요.
+
+### 댓글 리스트
+- api
+    - /post/:post_id/comments (get)
+    - /post/:post_id/comments/?limit=Number&skip=Number (get)
+
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- res
+    - comment
+        - id: Sting
+        - content: Sting
+        - createdAt: Sting
+        - author
+            - _id: "작성자 id"
+            - username: String
+            - accountname: String
+            - intro: String
+            - image: String
+            - following: []
+            - follower: []
+            - followerCount: Number
+            - followingCount: Number
+
+- 댓글이 존재하지 않는 경우
+    - comment: []
+
+- fail
+    - 존재하지 않는 게시글입니다.

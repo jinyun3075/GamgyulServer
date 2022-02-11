@@ -105,7 +105,24 @@ const comment = async (infouser, comt, post_id) => {
     const infojson = setInfo(info);
     commentJson.author = infojson;
     return commentJson;
+}
 
+const commentList = async (post_id, query) => {
+    const post = await data.findOne({_id:post_id});
+    let list = post.comments;
+    if(query) {
+        console.log(list.slice(4,6));
+        list = list.slice(query.skip, (+query.skip + +query.limit));
+    }
+    const listDto = [];
+    for (let comment of list) {
+        const info = await user.findById(comment.author);
+        const infojson = setInfo(info);
+        const commentJson = comment.toJSON();
+        commentJson.author = infojson;
+        listDto.push(commentJson);
+    }
+    return listDto;
 }
 
 const setInfo = (info) => {
@@ -156,4 +173,4 @@ const setListPost = (post, infojson) => {
     }
     return dto;
 }
-module.exports = { create, list, getMyList, view, update , deletePost, heart, unheart, comment};
+module.exports = { create, list, getMyList, view, update , deletePost, heart, unheart, comment, commentList};

@@ -97,4 +97,16 @@ const comment = async (req, res) => {
         res.status(400).json(error.message);
     }
 }
-module.exports = { create, feed, getMyList, view, update, deletePost, heart, unheart, comment};
+
+const commentList = async (req, res) => {
+    const {post_id} = req.params;
+    const query = req.query;
+
+    try {
+        const data = await service.commentList(post_id, query);
+        res.status(200).json(data);
+    } catch(error) {
+        res.status(400).json(error.message);
+    }
+}
+module.exports = { create, feed, getMyList, view, update, deletePost, heart, unheart, comment, commentList};
