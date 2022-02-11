@@ -1,6 +1,13 @@
 const mongoose = require("mongoose");
 const comment = mongoose.Schema({
-    
+    content: {
+        type: String
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    author: String
 })
 const schema = mongoose.Schema({
     content: {
@@ -16,8 +23,7 @@ const schema = mongoose.Schema({
         default: []
     },
     comments: {
-        type: Array,
-        default: []
+        type: [comment]
     },
     author: {
         type : String
@@ -32,14 +38,17 @@ const schema = mongoose.Schema({
     }
 })
 
-schema.post('findOne', function(error, doc, next) {
+schema.post('findOne', (error, doc, next) => {
     if(error.kind=="ObjectId"){
-        next(new Error("존재하지 않는 게시글입니다."))
+        next(new Error("존재하지 않는 게시글입니다."));
     }
     next(error);
 })
 
-schema.post('findById',function(error,doc,next){
-    next(error)
+schema.post('findOneAndUpdate', (error, doc, next)=> {
+    if(error.kind=="ObjectId"){
+        next(new Error("존재하지 않는 게시글입니다."));
+    }
+    next(error);
 })
 module.exports = mongoose.model("post",schema);

@@ -89,9 +89,23 @@ const unheart = async (post_id, infouser) => {
     throw new Error("좋아요 안되어 있습니다.")
 }
 
-const comment = (infouser, comments, post_id) => {
-    const post = await data.findOne({_id:post_id});
-    
+const comment = async (infouser, comt, post_id) => {
+    if(!comt.content) {
+        throw new Error("댓글을 입력해주세요.");
+    }
+    const post = await data.findOneAndUpdate({_id:post_id},{$push:{
+        comments:{
+            author: infouser.id,
+            content: comt.content
+        }
+    }},{new:true});
+    const leng = post.comments.length;
+    const commentJson = post.comments[leng-1].toJSON();
+    const info = await user.findById(infouser.id);
+    const infojson = setInfo(info);
+    commentJson.author = infojson;
+    return commentJson;
+
 }
 
 const setInfo = (info) => {
@@ -142,4 +156,4 @@ const setListPost = (post, infojson) => {
     }
     return dto;
 }
-module.exports = { create, list, getMyList, view, update , deletePost, heart, unheart};
+module.exports = { create, list, getMyList, view, update , deletePost, heart, unheart, comment};
