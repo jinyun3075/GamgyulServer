@@ -4,6 +4,14 @@
 - model -> config.js 파일에서 DB 설정
 - npm i cors express dotenv mongoose multer body-parser bcrypt jsonwebtoken 를 입력하여 패키지를 다운받는다.
 - npm start 를 입력하여 서버 실행
+
+## DB관계도
+![image](https://user-images.githubusercontent.com/64072136/153585932-13c8e80a-05d9-46b6-b53e-daaf7c7f7595.png)
+
+
+## 구조
+![image](https://user-images.githubusercontent.com/64072136/153583200-eb56ee6c-c82a-4238-aca0-6e3e3adaae8a.png)
+
 ## 목차
 [1. 유저](#유저)
 
