@@ -1,4 +1,4 @@
-# 감귤서버 API
+# 감귤서버 API (2022-01-16 ~ ing)
 ## 실행 방법
 - GamgulServer 폴더로 이동한다.
 - model -> config.js 파일에서 DB 설정
