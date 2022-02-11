@@ -16,5 +16,6 @@ router.delete('/:post_id', auth, controller.deletePost);
 
 router.get('/:post_id/comments', auth, controller.commentList)
 router.post('/:post_id/comments', auth, controller.comment)
+router.delete('/:post_id/comments/:comment_id', auth, controller.deleteComment)
 
 module.exports = router;

@@ -14,8 +14,12 @@ const create = async (post,id)=>{
 
 const list = async (query, id) => {
     const my = await user.findById(id);
+    let list = my.following;
+    if(query) {
+        list = list.slice(query.skip, (+query.skip + +query.limit));
+    }
     const dto =[];
-    for (const follow of my.following) {
+    for (const follow of list) {
         const info = await user.findById(follow);
         const infoid = info.id;
         const board = await data.find({author:infoid});
@@ -86,7 +90,7 @@ const unheart = async (post_id, infouser) => {
         const infojson = setInfo(info);
         return heartDto(heart, infojson, false);
     }
-    throw new Error("좋아요 안되어 있습니다.")
+    throw new Error("좋아요 안되어 있습니다.");
 }
 
 const comment = async (infouser, comt, post_id) => {
@@ -111,7 +115,6 @@ const commentList = async (post_id, query) => {
     const post = await data.findOne({_id:post_id});
     let list = post.comments;
     if(query) {
-        console.log(list.slice(4,6));
         list = list.slice(query.skip, (+query.skip + +query.limit));
     }
     const listDto = [];
@@ -123,6 +126,22 @@ const commentList = async (post_id, query) => {
         listDto.push(commentJson);
     }
     return listDto;
+}
+
+const deleteComment = async (post_id, comment_id, infouser) => {
+    const post = await data.findOne({_id:post_id});
+    let list = post.comments;
+    const del = list.find(id => id.id == comment_id);
+    if(!del)
+    {
+        throw new Error("댓글이 존재하지 않습니다.")
+    }
+    if(del.author == infouser.id) {
+        const id = del.id;
+        await data.findOneAndUpdate({_id:post_id},{$pull:{comments:{_id:id}}});
+        return;
+    }
+    throw new Error("본인 댓글만 삭제 가능합니다.");
 }
 
 const setInfo = (info) => {
@@ -173,4 +192,4 @@ const setListPost = (post, infojson) => {
     }
     return dto;
 }
-module.exports = { create, list, getMyList, view, update , deletePost, heart, unheart, comment, commentList};
+module.exports = { create, list, getMyList, view, update , deletePost, heart, unheart, comment, commentList, deleteComment};

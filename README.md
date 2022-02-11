@@ -651,3 +651,19 @@
 
 - fail
     - 존재하지 않는 게시글입니다.
+
+### 댓글 삭제
+
+- api
+    - /post/:post_id/comments/:comment_id (delete)
+
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- res
+    - 댓글이 삭제되었습니다
+
+- fail
+    - 존재하지 않는 게시글입니다.
+    - 댓글이 존재하지 않습니다.

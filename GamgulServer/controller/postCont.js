@@ -109,4 +109,15 @@ const commentList = async (req, res) => {
         res.status(400).json(error.message);
     }
 }
-module.exports = { create, feed, getMyList, view, update, deletePost, heart, unheart, comment, commentList};
+
+const deleteComment = async(req, res) => {
+    const { post_id, comment_id } = req.params;
+    const { infouser } = req.body;
+    try {
+        await service.deleteComment(post_id, comment_id, infouser);
+        res.status(200).json("삭제되었습니다.");
+    } catch(error) {
+        res.status(400).json(error.message);
+    }
+}
+module.exports = { create, feed, getMyList, view, update, deletePost, heart, unheart, comment, commentList, deleteComment};

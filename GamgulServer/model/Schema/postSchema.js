@@ -23,7 +23,8 @@ const schema = mongoose.Schema({
         default: []
     },
     comments: {
-        type: [comment]
+        type: [comment],
+        default: []
     },
     author: {
         type : String
