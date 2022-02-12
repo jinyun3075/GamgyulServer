@@ -1,9 +1,17 @@
-# 감귤서버 API
+# 감귤서버 API (2022-01-16 ~ ing)
 ## 실행 방법
 - GamgulServer 폴더로 이동한다.
 - model -> config.js 파일에서 DB 설정
 - npm i cors express dotenv mongoose multer body-parser bcrypt jsonwebtoken 를 입력하여 패키지를 다운받는다.
 - nodemon 이 설치 되어있다면 npm start, 없을 경우 npm run-script start2 를 입력하여 서버 실행
+
+## DB관계도
+![image](https://user-images.githubusercontent.com/64072136/153585932-13c8e80a-05d9-46b6-b53e-daaf7c7f7595.png)
+
+
+## 구조
+![image](https://user-images.githubusercontent.com/64072136/153583200-eb56ee6c-c82a-4238-aca0-6e3e3adaae8a.png)
+
 ## 목차
 [1. 유저](#유저)
 
@@ -67,7 +75,7 @@
 
 - [7.3 댓글 삭제](#댓글-삭제)
 
-## 유저
+## 📌유저
 ### 회원가입
 - api
     - /user (post)
@@ -128,7 +136,7 @@
         - accountname: String
         - intro: String
         - image: String
-## 이미지
+## 📌이미지
 ### 이미지 업로드
 - api
     - /image/uploadfile (post)
@@ -168,7 +176,7 @@
 - fail
     - status 404
 
-## 프로필
+## 📌프로필
 ### 프로필 수정
 - api
     - /user (put)
@@ -335,7 +343,7 @@
         - followingCount: 0
 - fail
     - 해당 계정이 존재하지 않습니다.
-## 검색
+## 📌검색
 ### 유저 검색
 - api
     - /user/searchuser/?keyword=keyword
@@ -350,7 +358,7 @@
     - follower: []
     - followerCount: Number
     - followingCount: Number
-## 게시글
+## 📌게시글
 ### 게시글 작성
 - api
     - /post (post)
@@ -529,7 +537,7 @@
     - 존재하지 않는 게시글입니다.
     - 잘못된 요청입니다. 로그인 정보를 확인하세요. ( 다른 사용자가 해당 게시물을 수정할 경우)]
 
-## 좋아요
+## 📌좋아요
 
 ### 좋아요
 - api
@@ -589,7 +597,7 @@
 - fail
     - 존재하지 않는 게시글입니다.
 
-## 댓글
+## 📌댓글
 ### 댓글 작성
 - api
     - /post/:post_id/comments (post)
@@ -667,3 +675,35 @@
 - fail
     - 존재하지 않는 게시글입니다.
     - 댓글이 존재하지 않습니다.
+
+## 상품
+### 상품 등록
+
+- api
+    - /product (post)
+
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- res
+    - product
+        - id: String
+        - itemName: String
+        - price: Number
+        - link: String
+        - itemImage: String
+        - author
+            - _id: "작성자 id"
+            - username: String
+            - accountname: String
+            - intro: String
+            - image: String
+            - following: []
+            - follower: []
+            - followerCount: Number
+            - followingCount: Number
+
+- fail 
+    - 필수 입력사항을 입력해 주세요. (하나라도 입력이 되어있지 않을 경우)
+    - 가격은 숫자로 입력해주세요.
