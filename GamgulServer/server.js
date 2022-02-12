@@ -9,6 +9,7 @@ const imgRouter = require('./routes/imgRoute');
 const userRouter = require('./routes/userRoute');
 const profileRouter = require('./routes/profileRoute');
 const postRouter = require('./routes/postRoute');
+const productRouter = require('./routes/productRoute')
 dotenv.config();
 
 db();
@@ -22,6 +23,7 @@ app.use('/image', imgRouter);
 app.use('/user', userRouter);
 app.use('/profile', profileRouter);
 app.use('/post', postRouter)
+app.use('/product', productRouter)
 
 app.use((req, res, next) => {
     res.sendStatus(404);

@@ -68,9 +68,6 @@ schema.post('save', function(error, doc, next) {
             } else if(accountname && error.code === 11000){
                 next(new Error('이미 사용중인 계정 ID입니다.'))
             }
-            else {
-                next(error);
-            }
         }
         next(error);
     }
