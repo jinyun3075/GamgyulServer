@@ -79,6 +79,12 @@
 
 - [8.1 상품 등록](#상품-등록)
 
+- [8.2 상품 리스트](#상품-리스트)
+
+- [8.3 상품 상세](#상품-상세)
+
+- [8.4 상품 수정](#상품-수정)
+
 ## 📌유저
 ### 회원가입
 - api
@@ -129,7 +135,7 @@
 - api
     - /user (get)
 - res
-    - user
+    - user: []
         - _id: String
         - email: String
         - hearts: []
@@ -144,7 +150,7 @@
 ### 이미지 업로드
 - api
     - /image/uploadfile (post)
-- headers
+- header
     - apl
 - req
     - key: image
@@ -191,7 +197,7 @@
         - intro: String
         - image: String
 
-- headers
+- header
     - "Authorization" : “Bearer key”
 	- "Content-type" : application/json
 
@@ -211,7 +217,7 @@
 - api
     - /profile/:accountname (get)
 
-- headers
+- header
     - Authorization : “Bearer key”
 	- Content-type : "application/json"
 
@@ -235,7 +241,7 @@
 ### 팔로우
 - api
     - /profile/:accountname/follow (post)
-- headers
+- header
     - Authorization : Bearer key
 	- Content-type : application/json
 - res
@@ -271,7 +277,7 @@
 ### 언팔로우
 - api
     - /profile/:accountname/unfollow (delete)
-- headers
+- header
     - Authorization : Bearer key
 	- Content-type : application/json
 - res
@@ -308,7 +314,7 @@
 - api
     - /profile/:accountname/following (get)
     - /profile/:accountname/following?limit=Number&skip=Number (get)
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 - res
@@ -330,7 +336,7 @@
 - api
     - /profile/:accountname/follower (get)
     - /profile/:accountname/follower/?limit=Number&skip=Number (get)
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 - res
@@ -351,22 +357,23 @@
 ### 유저 검색
 - api
     - /user/searchuser/?keyword=keyword
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 - res
-    - id: String
-    - username: String
-    - accountname: String
-    - following: []
-    - follower: []
-    - followerCount: Number
-    - followingCount: Number
+    - []
+        - id: String
+        - username: String
+        - accountname: String
+        - following: []
+        - follower: []
+        - followerCount: Number
+        - followingCount: Number
 ## 📌게시글
 ### 게시글 작성
 - api
     - /post (post)
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 - req
@@ -400,13 +407,13 @@
     - /post/feed (get)
     - /post/feed/?limit=Number&skip=Number (get)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 
 - res
     - 팔로워한 사용자가 있을때
-    - post
+    - post: []
         - id : String
         - content : String
         - image : []
@@ -432,12 +439,12 @@
     - /post/:accountname/userpost (get)
     - /post/:accountname/userpost/?limit=Number&skip=Number (get)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 
 - res
-    - post
+    - post: []
         - id : String
         - content : String
         - image : []
@@ -466,7 +473,7 @@
 - api
     - /post/:post_id (get)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 
@@ -495,7 +502,7 @@
 - api
     - /post/:post_id (put)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 
@@ -530,7 +537,7 @@
 - api
     - /post/:post_id (delete)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 
@@ -547,7 +554,7 @@
 - api
     - /post/:post_id/heart (post)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 
@@ -576,7 +583,7 @@
 - api
     - /post/:post_id/unheart (delete)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 
@@ -606,7 +613,7 @@
 - api
     - /post/:post_id/comments (post)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 
@@ -638,12 +645,12 @@
     - /post/:post_id/comments (get)
     - /post/:post_id/comments/?limit=Number&skip=Number (get)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 
 - res
-    - comment
+    - comment: []
         - id: Sting
         - content: Sting
         - createdAt: Sting
@@ -669,7 +676,7 @@
 - api
     - /post/:post_id/comments/:comment_id (delete)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 
@@ -686,9 +693,16 @@
 - api
     - /product (post)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
+
+- req
+    - product
+        - itemName: String
+        - price: Number
+        - link: String
+        - itemImage: String
 
 - res
     - product
@@ -717,13 +731,13 @@
     - /product/:accountname (get)
     - /product/:accountname/?limit=Number&skip=Number (get)
 
-- headers
+- header
     - Authorization: Bearer key
 	- Content-type: application/json
 
 - res
     - data: Number // 상품 수
-    - product
+    - product: []
         - id: String
         - itemName: String
         - price: Number
@@ -743,3 +757,81 @@
 - fail (상품 없을 때)
     - data: 0
     - product:[]
+
+### 상품 상세
+- api
+    - /product/detail/:product_id (get)
+
+- header
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- res
+    - product
+        - id: String
+        - itemName: String
+        - price: Number
+        - link: String
+        - itemImage: String
+        - author
+            - _id: "작성자 id"
+            - username: String
+            - accountname: String
+            - intro: String
+            - image: String
+            - following: []
+            - follower: []
+            - followerCount: Number
+            - followingCount: Number
+
+### 상품 수정
+- api
+    - /product/:product_id (put)
+
+- header
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- req
+    - product
+        - itemName: String
+        - price: Number
+        - link: String
+        - itemImage: String
+    
+- res
+    - product
+        - id: String
+        - itemName: String
+        - price: Number
+        - link: String
+        - itemImage: String
+        - author
+            - _id: "작성자 id"
+            - username: String
+            - accountname: String
+            - intro: String
+            - image: String
+            - following: []
+            - follower: []
+            - followerCount: Number
+            - followingCount: Number
+
+- fail 
+    - 등록된 상품이 없습니다.
+    - 잘못된 요청입니다. 로그인 정보를 확인하세요.
+
+### 상품 삭제
+- api
+    - /product/:product_id (delete)
+
+- header
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- res
+    - 삭제되었습니다.
+
+- fail
+    - 등록된 상품이 없습니다.
+    - 잘못된 요청입니다. 로그인 정보를 확인하세요.
