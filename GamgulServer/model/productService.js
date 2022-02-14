@@ -43,6 +43,27 @@ const view = async (product_id) => {
     return json;
 }
 
+const update = async (dto, product_id) => {
+    const com = await productEntity.findOne({_id:product_id});
+    if(com == null) {
+        throw new Error('등록된 상품이 없습니다.');
+    }
+    if(com.author == dto.infouser.id) {
+        const entity = await productEntity.findByIdAndUpdate(product_id,{
+            itemName: dto.product.itemName,
+            price: dto.product.price,
+            link: dto.product.link,
+            itemImage: dto.product.itemImage
+        },{new:true});
+        const infouser = await user.findById(entity.author);
+        const infoJson = setInfo(infouser);
+        const json = entity.toJSON();
+        json.author = infoJson;
+        return json;
+    }
+    throw new Error("잘못된 요청입니다. 로그인 정보를 확인하세요.");
+}
+
 const setInfo = (info) => {
     const infojson = info.toJSON();
     delete infojson.password;
@@ -55,4 +76,4 @@ const setInfo = (info) => {
     return infojson;
 }
 
-module.exports = { register, list, view };
+module.exports = { register, list, view, update };

@@ -15,11 +15,18 @@ const schema = mongoose.Schema({
         type: String,
         require: true
     }
-})
+});
 
 schema.post('save', (error, doc, next) => {
     if(error.errors.price.reason.code == 'ERR_ASSERTION') {
         next(new Error("가격은 숫자로 입력하셔야 합니다."));
+    }
+    next(error);
+});
+
+schema.post('findOne', (error, doc, next) => {
+    if(error.kind=="ObjectId"){
+        next(new Error("존재하지 않는 게시글입니다."));
     }
     next(error);
 })
