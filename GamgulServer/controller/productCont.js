@@ -41,4 +41,15 @@ const update = async (req, res) => {
         res.status(400).json(error.message);
     }
 }
-module.exports = { register, list, view, update }
+
+const deleteProduct = async (req, res) => {
+    const { product_id } = req.params;
+    const { infouser } = req.body;
+    try {
+        await service.deleteProduct(product_id, infouser);
+        res.status(200).json("삭제되었습니다.");
+    } catch(error) {
+        res.status(400).json(error.message);
+    }
+}
+module.exports = { register, list, view, update, deleteProduct }

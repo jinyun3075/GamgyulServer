@@ -26,7 +26,7 @@ schema.post('save', (error, doc, next) => {
 
 schema.post('findOne', (error, doc, next) => {
     if(error.kind=="ObjectId"){
-        next(new Error("존재하지 않는 게시글입니다."));
+        next(new Error("등록된 상품이 없습니다."));
     }
     next(error);
 })

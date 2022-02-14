@@ -64,10 +64,9 @@ const update = async (post, post_id, infouser) => {
 const deletePost = async (post_id, infouser) => {
     const check = await data.findOne({_id:post_id});
     if(check.author==infouser.id){
-        return data.findByIdAndDelete(post_id);
-    } else {
-        throw new Error("잘못된 요청입니다. 로그인 정보를 확인하세요")
+        return data.deleteOne({_id:post_id});
     }
+    throw new Error("잘못된 요청입니다. 로그인 정보를 확인하세요");
 }
 const heart = async (post_id, infouser) => {
     const post = await data.findOne({_id:post_id});
@@ -138,7 +137,7 @@ const deleteComment = async (post_id, comment_id, infouser) => {
     }
     if(del.author == infouser.id) {
         const id = del.id;
-        await data.findOneAndUpdate({_id:post_id},{$pull:{comments:{_id:id}}});
+        await data.updateOne({_id:post_id},{$pull:{comments:{_id:id}}});
         return;
     }
     throw new Error("본인 댓글만 삭제 가능합니다.");
