@@ -33,6 +33,16 @@ const list = async (query, accountname) => {
     return dto;
 }
 
+const view = async (product_id) => {
+    const product = await productEntity.findById(product_id);
+    const user_id = product.author;
+    const infouser = await user.findById(user_id);
+    const infoJson = setInfo(infouser);
+    const json = product.toJSON();
+    json.author = infoJson;
+    return json;
+}
+
 const setInfo = (info) => {
     const infojson = info.toJSON();
     delete infojson.password;
@@ -45,4 +55,4 @@ const setInfo = (info) => {
     return infojson;
 }
 
-module.exports = { register, list };
+module.exports = { register, list, view };

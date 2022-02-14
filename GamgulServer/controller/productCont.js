@@ -17,8 +17,17 @@ const list = async (req, res) => {
         const data = await service.list(query, accountname);
         res.status(200).json({"data":data.length,"product":data});
     }catch(error) {
-        res.status(200).json(error.message);
+        res.status(400).json(error.message);
     }
 }
 
-module.exports = { register, list }
+const view = async (req, res) => {
+    const { product_id } = req.params;
+    try {
+        const data = await service.view(product_id);
+        res.status(200).json(data);
+    }catch(error) {
+        res.status(400).json(error.message);
+    }
+}
+module.exports = { register, list, view }
