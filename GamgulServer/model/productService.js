@@ -19,6 +19,20 @@ const register = async (product, infouser) => {
     datajson.author = infojson;
     return datajson;
 }
+
+const list = async (query, accountname) => {
+    const infouser = await user.findOne({accountname});
+    const daolist = await productEntity.find({author:infouser.id}).limit(query.limit).skip(query.skip);
+    const infoJson = setInfo(infouser);
+    const dto = [];
+    for (const dao of daolist) {
+        const json = dao.toJSON();
+        json.author = infoJson;
+        dto.push(json);
+    }
+    return dto;
+}
+
 const setInfo = (info) => {
     const infojson = info.toJSON();
     delete infojson.password;
@@ -31,4 +45,4 @@ const setInfo = (info) => {
     return infojson;
 }
 
-module.exports = { register };
+module.exports = { register, list };

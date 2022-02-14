@@ -711,3 +711,35 @@
 - fail 
     - 필수 입력사항을 입력해 주세요. (하나라도 입력이 되어있지 않을 경우)
     - 가격은 숫자로 입력해주세요.
+
+### 상품 리스트
+- api
+    - /product/:accountname (get)
+    - /product/:accountname/?limit=Number&skip=Number (get)
+
+- headers
+    - Authorization: Bearer key
+	- Content-type: application/json
+
+- res
+    - data: Number // 상품 수
+    - product
+        - id: String
+        - itemName: String
+        - price: Number
+        - link: String
+        - itemImage: String
+        - author
+            - _id: "작성자 id"
+            - username: String
+            - accountname: String
+            - intro: String
+            - image: String
+            - following: []
+            - follower: []
+            - followerCount: Number
+            - followingCount: Number
+
+- fail (상품 없을 때)
+    - data: 0
+    - product:[]
