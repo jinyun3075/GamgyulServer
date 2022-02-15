@@ -1,6 +1,12 @@
 const data = require('./Schema/userSchema').model;
 const bcrypt = require('bcrypt')
 const create = async (user) => {
+    if (!user.email || !user.username || !user.accountname || !user.password){
+        throw new Error("필수 사항을 모두 입력해주세요");
+    }
+    if (user.password.length < 6) {
+        throw new Error("비밀번호는 6자 이상이여야 합니다.");
+    }
     const pw = bcrypt.hashSync(user.password, 10);
     const Schema = new data({
         email: user.email,
@@ -16,6 +22,13 @@ const create = async (user) => {
     return json
 }
 const login = async (user) => {
+    if (!user.email && !user.password) {
+        throw new Error("이메일 또는 비밀번호를 입력해주세요.")
+    } else if (!user.email) {
+        throw new Error("이메일을 입력해주세요.")
+    } else if (!user.password) {
+        throw new Error("비밀번호를 입력해주세요.")
+    }
     const dbuser = await data.findOne({ email: user.email });
     if (!dbuser) {
         throw new Error("이메일 또는 비밀번호가 일치하지 않습니다.");
@@ -32,9 +45,9 @@ const alluser = () => {
     return data.find();
 }
 
-const updateuser = (infouser, user) => {
-    const id = infouser.user.id;
-    return data.findByIdAndUpdate(id,
+const updateuser = async (infouser, user) => {
+    const id = infouser.id;
+    const dao = await data.findByIdAndUpdate(id,
         {
             username: user.username,
             accountname: user.accountname,
@@ -43,6 +56,12 @@ const updateuser = (infouser, user) => {
         },
         { new: true }
     );
+    const json = dao.toJSON();
+    delete json.password;
+    delete json.email;
+    delete json.pubDate;
+    delete json.modDate;
+    return json
 }
 
 const search = async (keyword) => {

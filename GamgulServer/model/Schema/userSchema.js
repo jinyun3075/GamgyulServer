@@ -39,10 +39,6 @@ const schema = mongoose.Schema({
         type: String,
         default: "default.png"
     },
-    // hearts: {
-    //     type: Array,
-    //     default: []
-    // },
     following:{
         type: Array,
         default: []
@@ -72,21 +68,6 @@ schema.post('save', function(error, doc, next) {
         next(error);
     }
 )
-// schema.method = ()=> {
-//     return {
-//         username : this.username
-//     }
-// }
-// schema.method.toAuthJson = ()=> {
-//     return {
-//         username : this.username
-//     }
-// }
-// schema.methods = ()=> {
-//     return {
-//         username : this.username
-//     }
-// }
-// module.exports = mongoose.model("user",schema);
+
 const model = mongoose.model("user",schema);
 module.exports = {schema, model}
