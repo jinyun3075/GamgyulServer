@@ -2,7 +2,7 @@
 ## 실행 방법
 - GamgulServer 폴더로 이동한다.
 - model -> config.js 파일에서 DB 설정
-- npm i cors express dotenv mongoose multer body-parser bcrypt jsonwebtoken 를 입력하여 패키지를 다운받는다.
+- npm install 를 입력하여 패키지를 다운받는다.
 - nodemon 이 설치 되어있다면 npm start, 없을 경우 npm run-script start2 를 입력하여 서버 실행
 
 ## DB관계도
