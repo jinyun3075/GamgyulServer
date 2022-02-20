@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   server:
-    build: ./GamgulServer
+    build: ./GamgyulServer
     restart: always # 컨테이너 실행시 재시작
     container_name: "gamgyul"
     ports:
