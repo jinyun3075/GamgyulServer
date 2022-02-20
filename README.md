@@ -2,18 +2,23 @@
 ## 실행 방법
 - GamgulServer 폴더로 이동한다.
 - model -> config.js 파일에서 DB 설정
-- .env 파일을 만들고 db 설정을 채워넣는다.
+- .env 파일을 만들고 원하는 DB 경로 및 토큰 값을 채워넣는다.<br>
     예시)
-        "
-            DATA_URL= "몽고DB Atlas link"
-            DOCKER = "mongodb://docker:27017/gamgyul" : 도커DB
-            LOCAL = "mongodb://localhost:27017/gamgyul" : 로컬DB
-            TOKEN = "진윤재" : 1차 토큰
-            TOKEN2 = "짱" : 2차 토큰
-        "
-- npm install 를 입력하여 패키지를 다운받는다.
-- nodemon 이 설치 되어있다면 npm start, 없을 경우 npm run-script start2 를 입력하여 서버 실행
+    ``` js
+        DATA_URL= "몽고DB Atlas link"
+        DOCKER = "mongodb://docker:27017/gamgyul" : 도커DB
+        LOCAL = "mongodb://localhost:27017/gamgyul" : 로컬DB
+        TOKEN = "진윤재" : 1차 토큰
+        TOKEN2 = "짱" : 2차 토큰
+    ```
+- " npm install " 를 입력하여 패키지를 다운받는다.
+- nodemon 이 설치 되어있다면 " npm start " 없을 경우 " npm run-script start2 " 를 터미널에 입력하여 서버 실행
 
+## Docker 실행법
+- Docker 다운로드
+- Docker-compose.yml 파일 위치에서 " docker-compose up -d "입력
+## 결과
+![image](https://user-images.githubusercontent.com/64072136/154835646-dd5d3420-9897-4807-b481-3b9d01f924f2.png)
 ## DB관계도
 ![image](https://user-images.githubusercontent.com/64072136/153585932-13c8e80a-05d9-46b6-b53e-daaf7c7f7595.png)
 
