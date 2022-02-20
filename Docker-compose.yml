@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  server:
+    build: ./GamgulServer
+    restart: always # 컨테이너 실행시 재시작
+    container_name: "gamgyul"
+    ports:
+    - "8080:8080"
+    depends_on: # 실행순서 (mongo 시작 후 실행)
+    - mongo
+    stdin_open: true
+    tty: true # 표준입력에 연결된 터미널의 파일 이름 인쇄?
+  mongo:
+    image: mongo
+    container_name: "mongo"
+    restart: always
+    ports:
+    - "27017:27017"
