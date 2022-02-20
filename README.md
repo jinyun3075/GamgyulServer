@@ -2,6 +2,15 @@
 ## 실행 방법
 - GamgulServer 폴더로 이동한다.
 - model -> config.js 파일에서 DB 설정
+- .env 파일을 만들고 db 설정을 채워넣는다.
+    예시)
+        "
+            DATA_URL= "몽고DB Atlas link"
+            DOCKER = "mongodb://docker:27017/gamgyul" : 도커DB
+            LOCAL = "mongodb://localhost:27017/gamgyul" : 로컬DB
+            TOKEN = "진윤재" : 1차 토큰
+            TOKEN2 = "짱" : 2차 토큰
+        "
 - npm install 를 입력하여 패키지를 다운받는다.
 - nodemon 이 설치 되어있다면 npm start, 없을 경우 npm run-script start2 를 입력하여 서버 실행
 
