@@ -1,5 +1,5 @@
 const service = require('../model/userService')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const sign = async (req, res, next) => {

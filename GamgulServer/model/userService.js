@@ -1,5 +1,5 @@
 const data = require('./Schema/userSchema').model;
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const create = async (user) => {
     if (!user.email || !user.username || !user.accountname || !user.password){
         throw new Error("필수 사항을 모두 입력해주세요");
