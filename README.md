@@ -6,7 +6,7 @@
 - .env 파일을 만들고 원하는 DB 경로 및 토큰 값을 채워넣는다.<br>
     예시)
     ``` js
-        DATA_URL= "몽고DB Atlas link"
+        DATA_URL= "Atlas link" : Atlas 몽고 DB
         DOCKER = "mongodb://docker:27017/gamgyul" : 도커DB
         LOCAL = "mongodb://localhost:27017/gamgyul" : 로컬DB
         TOKEN = "진윤재" : 1차 토큰
