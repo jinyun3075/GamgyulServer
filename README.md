@@ -1,4 +1,6 @@
 # 감귤서버 API (2022-01-16 ~ 2022-02-14)
+## UI
+- #### [UI REPO](https://github.com/jinyun3075/GamgyulMarket)
 ## 실행 방법
 - git clone https://github.com/jinyun3075/gamgyulserver.git
 - gamgyulserver -> GamgyulServer 폴더로 이동한다.
